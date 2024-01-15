@@ -37,21 +37,21 @@ function wrap(text: string, inputs: ActionInputs): string {
     try {
         const inputs: ActionInputs = getInputs();
 
-        if (inputs.type === Types.Text) {
+        if (inputs.type === Types.Text.toString()) {
             setOutputs({ result: wrap(inputs.input, inputs) })
             return
         }
 
         const input = JSON.parse(inputs.input) as any[]
 
-        if (inputs.type === Types.FlatJSON) {
+        if (inputs.type === Types.FlatJSON.toString()) {
             setOutputs({
                 result: input.map((item) => wrap(`${item}`, inputs))
             })
             return
         }
 
-        if (inputs.type === Types.NestedJSON) {
+        if (inputs.type === Types.NestedJSON.toString()) {
             setOutputs({
                 result: input.map((item) => {
                     item[inputs.key] = wrap(item[inputs.key].toString(), inputs)

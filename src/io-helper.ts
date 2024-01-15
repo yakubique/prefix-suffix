@@ -39,6 +39,8 @@ export function getInputs(): ActionInputs {
     const typeVar = core.getInput(Inputs.Type, { required: false })
     if (isBlank(typeVar)) {
         result.type = Types.Text
+    } else {
+        result.type = typeVar
     }
 
     if (result.type == Types.NestedJSON) {
