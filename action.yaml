@@ -1,0 +1,24 @@
+name: prefix-suffix
+description: Add prefix/suffix to text/json
+author: Vladimir Levin
+branding:
+  icon: type
+  color: purple
+inputs:
+  input:
+    description: 'Text or JSON to add prefix/suffix'
+    required: true
+  type:
+    description: 'Type of input data `["text", "flat-json", "nested-json"]` (default: "text")'
+  key:
+    description: If `type="nested-json"` - which key should be prefixed
+  prefix:
+    description: Prefix to add. Avoidable
+  suffix:
+    description: Suffix to add. Avoidable
+outputs:
+  result: # id of output
+    description: Result text/json
+runs:
+  using: 'node20'
+  main: 'action/index.js'
