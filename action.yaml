@@ -1,4 +1,4 @@
-name: prefix-suffix
+name: "Add prefix/suffix to text/json"
 description: Add prefix/suffix to text/json
 author: Vladimir Levin
 branding:
