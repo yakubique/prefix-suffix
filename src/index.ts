@@ -61,7 +61,7 @@ function wrap(text: string, inputs: ActionInputs): string {
             })
         }
 
-        core.info('Get release has finished successfully');
+        core.info('Success!');
     } catch (err: any) {
         core.setFailed(err.message);
     }

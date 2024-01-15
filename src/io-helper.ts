@@ -34,7 +34,7 @@ export interface ActionInputs {
 export function getInputs(): ActionInputs {
     const result: ActionInputs | any = {};
 
-    result.input = core.getInput(Inputs.Input, { required: true })
+    result.input = `${core.getInput(Inputs.Input, { required: true })}`
 
     const typeVar = core.getInput(Inputs.Type, { required: false })
     if (isBlank(typeVar)) {
