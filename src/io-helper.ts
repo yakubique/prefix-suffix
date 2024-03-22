@@ -1,7 +1,7 @@
 import * as core from '@actions/core';
-import { InputOptions } from '@actions/core';
+import { getOptional } from "@yakubique/atils/dist";
 
-enum Inputs {
+export enum Inputs {
     Input = 'input',
     Type = 'type',
     Key = 'key',
@@ -15,14 +15,6 @@ export enum Types {
     NestedJSON = 'nested-json'
 }
 
-function isBlank(value: any): boolean {
-    return value === null || value === undefined || (value.length !== undefined && value.length === 0);
-}
-
-export function isNotBlank(value: any): boolean {
-    return value !== null && value !== undefined && (value.length === undefined || value.length > 0);
-}
-
 export interface ActionInputs {
     input: string;
     type: string;
@@ -31,24 +23,21 @@ export interface ActionInputs {
     suffix: string;
 }
 
+const notRequired = { required: false };
+const required = { required: true };
+
 export function getInputs(): ActionInputs {
-    const result: ActionInputs | any = {};
+    const result: ActionInputs = {} as ActionInputs;
 
-    result.input = `${core.getInput(Inputs.Input, { required: true })}`
-
-    const typeVar = core.getInput(Inputs.Type, { required: false })
-    if (isBlank(typeVar)) {
-        result.type = Types.Text
-    } else {
-        result.type = typeVar
-    }
+    result.input = core.getInput(Inputs.Input, required)
+    result.type = getOptional(Inputs.Type, Types.Text, notRequired)
 
     if (result.type == Types.NestedJSON) {
-        result.key = core.getInput(Inputs.Key, { required: true })
+        result.key = core.getInput(Inputs.Key, required)
     }
 
-    result.prefix = core.getInput(Inputs.Prefix, { required: false })
-    result.suffix = core.getInput(Inputs.Suffix, { required: false })
+    result.prefix = core.getInput(Inputs.Prefix, notRequired)
+    result.suffix = core.getInput(Inputs.Suffix, notRequired)
 
     return result;
 }
